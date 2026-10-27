@@ -1,0 +1,10 @@
+{
+  "name": "reelway",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "node --check src/app.mjs && node --check src/catalog.mjs && node --check src/data.mjs",
+    "test": "node --test"
+  }
+}

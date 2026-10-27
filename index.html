@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111311">
+  <meta name="description" content="Discover entertainment, explore viewing roadmaps, and keep a personal watchlist.">
+  <title>Reelway — Find your next story</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="src/app.mjs"></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#discover" aria-label="Reelway home"><span class="brand-mark" aria-hidden="true">R</span>reelway</a>
+    <nav class="primary-nav" aria-label="Main navigation">
+      <a class="nav-link active" href="#discover" data-view="discover">Discover</a>
+      <a class="nav-link" href="#roadmaps" data-view="roadmaps">Roadmaps</a>
+      <a class="nav-link" href="#watchlist" data-view="watchlist">My watchlist <span class="watchlist-count" id="watchlistCount">0</span></a>
+    </nav>
+    <div class="country-picker">
+      <label for="countrySelect">Region</label>
+      <select id="countrySelect" aria-label="Streaming region">
+        <option value="US">US</option>
+        <option value="GB">UK</option>
+        <option value="CA">CA</option>
+        <option value="AU">AU</option>
+      </select>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="discover" aria-labelledby="heroTitle">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="status-dot"></span> A calmer way to choose</p>
+        <h1 id="heroTitle">Find your next<br><span>great story.</span></h1>
+        <p class="hero-description">Explore the worlds you love, see where to begin, and keep your watchlist in one place.</p>
+        <a class="hero-link" href="#catalog">Explore the collection <span aria-hidden="true">↓</span></a>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+        <div class="art-disc"><span>R</span></div>
+        <div class="art-caption">STORIES<br>WORTH THE TIME</div>
+      </div>
+      <p class="demo-banner"><span aria-hidden="true">ⓘ</span> Demo catalogue: metadata and roadmap order are unverified. Streaming availability is unknown.</p>
+    </section>
+
+    <section class="catalog-section" id="catalog" aria-labelledby="sectionTitle">
+      <div class="section-intro">
+        <div>
+          <p class="eyebrow">The collection</p>
+          <h2 id="sectionTitle">Stories to explore</h2>
+        </div>
+        <p id="resultCount" class="result-count" aria-live="polite"></p>
+      </div>
+      <div class="toolbar">
+        <label class="search-box">
+          <span aria-hidden="true">⌕</span>
+          <span class="sr-only">Search titles and franchises</span>
+          <input id="searchInput" type="search" placeholder="Search titles or franchises…" autocomplete="off">
+          <kbd>/</kbd>
+        </label>
+        <label class="filter-field"><span class="sr-only">Content type</span>
+          <select id="typeFilter"><option value="">All formats</option><option value="movie">Movies</option><option value="tv">TV</option></select>
+        </label>
+        <label class="filter-field"><span class="sr-only">Release year</span>
+          <select id="yearFilter"><option value="">All years</option></select>
+        </label>
+        <label class="filter-field"><span class="sr-only">Streaming provider availability</span>
+          <select id="providerFilter"><option value="">Any availability</option><option value="unknown">Unknown only</option></select>
+        </label>
+        <label class="filter-field sort-field"><span class="sr-only">Sort titles</span>
+          <select id="sortSelect"><option value="release">Release year</option><option value="title">Title</option></select>
+        </label>
+      </div>
+      <div id="viewNotice" class="view-notice hidden" role="status"></div>
+      <div id="catalogGrid" class="catalog-grid" aria-live="polite"></div>
+      <div id="emptyState" class="empty-state hidden">
+        <span class="empty-icon" aria-hidden="true">⌕</span>
+        <h3>Nothing found just yet</h3>
+        <p>Try a different title or clear a filter to see the collection.</p>
+        <button id="clearFilters" class="button button-quiet" type="button">Clear filters</button>
+      </div>
+    </section>
+
+    <section class="roadmap-section" id="roadmaps" aria-labelledby="roadmapTitle">
+      <div class="section-intro">
+        <div><p class="eyebrow">Follow the thread</p><h2 id="roadmapTitle">A world, two ways</h2></div>
+        <p class="roadmap-intro">Switch between theatrical release and story chronology. The sample order is not verified.</p>
+      </div>
+      <div class="roadmap-card">
+        <div class="roadmap-heading">
+          <div><span class="franchise-mark">M</span><div><h3>Marvel Cinematic Universe</h3><p>Sample roadmap · confirm order before relying on it</p></div></div>
+          <div class="order-toggle" role="group" aria-label="Roadmap order">
+            <button type="button" class="order-button selected" data-order="release" aria-pressed="true">Release order</button>
+            <button type="button" class="order-button" data-order="story" aria-pressed="false">Story order</button>
+          </div>
+        </div>
+        <p id="roadmapProgress" class="roadmap-progress" role="status"></p>
+        <ol id="roadmapList" class="roadmap-list"></ol>
+      </div>
+    </section>
+
+    <section class="watchlist-section" id="watchlist" aria-labelledby="watchlistTitle">
+      <div class="section-intro">
+        <div><p class="eyebrow">Your next up</p><h2 id="watchlistTitle">My watchlist</h2></div>
+        <p class="roadmap-intro">Saved only in this browser on this device. No account or cloud sync is connected.</p>
+      </div>
+      <div id="watchlistGrid" class="watchlist-grid"></div>
+      <p id="watchlistEmpty" class="watchlist-empty">Your watchlist is clear. Save a title from the collection to keep it close.</p>
+      <p id="watchlistSummary" class="watchlist-empty hidden" role="status"></p>
+    </section>
+  </main>
+
+  <footer class="footer"><a class="brand" href="#discover"><span class="brand-mark" aria-hidden="true">R</span>reelway</a><p>Discover thoughtfully. Verify before you watch.</p><span>Demo data · not a verified catalogue</span></footer>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <dialog id="titleDialog" class="title-dialog" aria-labelledby="dialogTitle">
+    <button id="closeDialog" class="dialog-close" type="button" aria-label="Close details">×</button>
+    <div id="dialogContent"></div>
+  </dialog>
+</body>
+</html>
